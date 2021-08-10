@@ -27,8 +27,6 @@ Item {
         height: Math.min(implicitHeight, main.height - y - Controls.Theme.baseSize * 2)
         y: button.height + Controls.Theme.margins
         x: button.x
-        backgroundOpacity: 0.45
-        backgroundColor: "black"
 
         Widgets.ListWrapper {
             model: controller.adsb
