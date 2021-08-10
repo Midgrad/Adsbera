@@ -11,7 +11,7 @@ class ModuleAdsbera
 {
     Q_OBJECT
     Q_INTERFACES(kjarni::app::IModule)
-    Q_PLUGIN_METADATA(IID "Midgrad.ModuleAdsb" FILE "meta.json")
+    Q_PLUGIN_METADATA(IID "Midgrad.ModuleAdsbera" FILE "meta.json")
 
 public:
     Q_INVOKABLE ModuleAdsbera();
