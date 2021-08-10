@@ -12,15 +12,7 @@ ModuleAdsbera::ModuleAdsbera()
     qmlRegisterType<endpoint::AdsbController>("Dreka.Adsb", 1, 0, "AdsbController");
 }
 
-void ModuleAdsbera::init()
+void ModuleAdsbera::visit(QJsonObject& features)
 {
-}
-
-void ModuleAdsbera::done()
-{
-}
-
-QJsonObject ModuleAdsbera::qmlEntries() const
-{
-    return QJsonObject::fromVariantMap({ { "menu", "qrc:/Adsb/AdsbView.qml" } });
+    kjarni::utils::insertInArray(features, "menu", "qrc:/Adsb/AdsbView.qml");
 }
