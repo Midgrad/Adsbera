@@ -3,30 +3,26 @@ import Industrial.Controls 1.0 as Controls
 import Industrial.Widgets 1.0 as Widgets
 import Dreka.Adsb 1.0
 
-Item {
+Controls.Button {
     id: root
 
     AdsbController { id: controller }
 
-    Controls.Button {
-        id: button
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.margins: Controls.Theme.margins
-        iconSource: "qrc:/icons/adsb.svg"
-        tipText: qsTr("Adsb overview")
-        highlighted: popup.visible
-        onClicked: popup.visible ? popup.close() : popup.open()
-    }
+    iconSource: "qrc:/icons/adsb.svg"
+    tipText: qsTr("Adsb overview")
+    highlighted: popup.visible
+    onClicked: popup.visible ? popup.close() : popup.open()
+
+    Component.onCompleted: controller.start()
 
     Controls.Popup {
         id: popup
 
-        closePolicy: Controls.Popup.NoAutoClose
+        closePolicy: Controls.Popup.CloseOnPressOutsideParent
         width: Controls.Theme.baseSize * 10
-        height: Math.min(implicitHeight, main.height - y - Controls.Theme.baseSize * 2)
-        y: button.height + Controls.Theme.margins
-        x: button.x
+        height: Math.min(implicitHeight, main.availableHeight)
+        y: root.height + Controls.Theme.margins
+        x: root.x
 
         Widgets.ListWrapper {
             model: controller.adsb
@@ -41,3 +37,4 @@ Item {
         }
     }
 }
+

@@ -16,6 +16,9 @@ public:
 
     QJsonArray adsb() const;
 
+public slots:
+    void start();
+
 signals:
     void adsbChanged();
 
