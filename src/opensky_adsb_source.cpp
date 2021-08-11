@@ -41,7 +41,7 @@ void OpenskyAdsbSource::start()
 {
     m_started = true;
     m_timer.start();
-    this->get("/states/all");
+    this->get("/states/all?lamin=45.8389&lomin=5.9962&lamax=47.8229&lomax=10.5226");
 }
 
 void OpenskyAdsbSource::stop()
