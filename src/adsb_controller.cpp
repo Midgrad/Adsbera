@@ -1,7 +1,17 @@
 #include "adsb_controller.h"
 
+#include <QDebug>
+
+#include "i_property_tree.h"
+#include "locator.h"
 #include "opensky_adsb_source.h"
 
+namespace
+{
+const QString adsb = "adsb";
+}
+
+using namespace kjarni::domain;
 using namespace adsbera::endpoint;
 
 AdsbController::AdsbController(QObject* parent) :
@@ -17,6 +27,13 @@ QJsonArray AdsbController::adsb() const
 
 void AdsbController::start()
 {
-    connect(m_source, &domain::IAdsbSource::adsbDataReceived, this, &AdsbController::adsbChanged);
+    IPropertyTree* pTree = Locator::get<IPropertyTree>();
+    Q_ASSERT(pTree);
+
+    connect(m_source, &domain::IAdsbSource::adsbDataReceived, [this, pTree](const QJsonArray& data) {
+        pTree->setProperty(::adsb, data);
+        emit adsbChanged();
+    });
+
     m_source->start();
 }
