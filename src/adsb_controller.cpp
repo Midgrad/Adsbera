@@ -8,7 +8,7 @@
 
 namespace
 {
-const QString adsb = "adsb";
+constexpr char adsb[] = "adsb";
 }
 
 using namespace kjarni::domain;
@@ -32,7 +32,8 @@ void AdsbController::start()
 
     connect(m_source, &domain::IAdsbSource::adsbDataReceived, [this, pTree](const QJsonArray& data) {
         pTree->setProperty(::adsb, data);
-        emit adsbChanged();
+
+        emit adsbChanged(data);
     });
 
     m_source->start();

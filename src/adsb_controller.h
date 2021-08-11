@@ -20,7 +20,7 @@ public slots:
     void start();
 
 signals:
-    void adsbChanged();
+    void adsbChanged(QJsonArray adsb);
 
 private:
     domain::IAdsbSource* const m_source;

@@ -13,7 +13,10 @@ Controls.Button {
     highlighted: popup.visible
     onClicked: popup.visible ? popup.close() : popup.open()
 
-    Component.onCompleted: controller.start()
+    Component.onCompleted: {
+        map.registerController("adsbController", controller)
+        controller.start();
+    }
 
     Controls.Popup {
         id: popup
