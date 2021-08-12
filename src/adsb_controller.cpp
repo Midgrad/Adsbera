@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-#include "adsb_exchange_source.h"
+#include "adsb_opensky_source.h"
 #include "i_property_tree.h"
 #include "locator.h"
 
@@ -16,7 +16,7 @@ using namespace adsbera::endpoint;
 
 AdsbController::AdsbController(QObject* parent) :
     QObject(parent),
-    m_source(new domain::AdsbExchangeSource(this))
+    m_source(new domain::AdsbOpenskySource)
 {
 }
 
