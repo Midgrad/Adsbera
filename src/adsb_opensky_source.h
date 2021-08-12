@@ -1,5 +1,5 @@
-#ifndef OPENSKY_ADSB_SOURCE_H
-#define OPENSKY_ADSB_SOURCE_H
+#ifndef ADSB_OPENSKY_SOURCE_H
+#define ADSB_OPENSKY_SOURCE_H
 
 #include "i_adsb_source.h"
 
@@ -9,12 +9,12 @@
 
 namespace adsbera::domain
 {
-class OpenskyAdsbSource : public IAdsbSource
+class AdsbOpenskySource : public IAdsbSource
 {
     Q_OBJECT
 
 public:
-    explicit OpenskyAdsbSource(QObject* parent = nullptr);
+    explicit AdsbOpenskySource(QObject* parent = nullptr);
 
     QJsonArray adsbData() const override;
 
@@ -27,7 +27,7 @@ private slots:
     void onFinished(QNetworkReply* reply);
 
 private:
-    void parseOpenskyData(const QJsonArray& data);
+    void parseData(const QJsonArray& data);
 
     QNetworkAccessManager m_manager;
     QPointer<QNetworkReply> m_lastReply;
@@ -38,4 +38,4 @@ private:
 
 } // namespace adsbera::domain
 
-#endif // OPENSKY_ADSB_SOURCE_H
+#endif // ADSB_OPENSKY_SOURCE_H

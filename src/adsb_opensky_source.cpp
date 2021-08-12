@@ -1,4 +1,4 @@
-#include "opensky_adsb_source.h"
+#include "adsb_opensky_source.h"
 
 #include <QDebug>
 #include <QJsonDocument>
@@ -27,24 +27,24 @@ constexpr int timeout = 1000;
 
 using namespace adsbera::domain;
 
-OpenskyAdsbSource::OpenskyAdsbSource(QObject* parent) : IAdsbSource(parent)
+AdsbOpenskySource::AdsbOpenskySource(QObject* parent) : IAdsbSource(parent)
 {
-    connect(&m_manager, &QNetworkAccessManager::finished, this, &OpenskyAdsbSource::onFinished);
+    connect(&m_manager, &QNetworkAccessManager::finished, this, &AdsbOpenskySource::onFinished);
 }
 
-QJsonArray OpenskyAdsbSource::adsbData() const
+QJsonArray AdsbOpenskySource::adsbData() const
 {
     return m_adsbData;
 }
 
-void OpenskyAdsbSource::start()
+void AdsbOpenskySource::start()
 {
     m_started = true;
     m_timer.start();
     this->get("/states/all?lamin=45.8389&lomin=5.9962&lamax=47.8229&lomax=10.5226");
 }
 
-void OpenskyAdsbSource::stop()
+void AdsbOpenskySource::stop()
 {
     if (m_lastReply)
     {
@@ -55,17 +55,17 @@ void OpenskyAdsbSource::stop()
     m_started = false;
 }
 
-void OpenskyAdsbSource::get(const QString& request)
+void AdsbOpenskySource::get(const QString& request)
 {
     m_lastReply = m_manager.get(QNetworkRequest(QNetworkRequest(QUrl(baseUrl + request))));
 }
 
-void OpenskyAdsbSource::onFinished(QNetworkReply* reply)
+void AdsbOpenskySource::onFinished(QNetworkReply* reply)
 {
     if (reply->error() == QNetworkReply::NoError)
     {
         QJsonDocument doc = QJsonDocument::fromJson(reply->readAll());
-        this->parseOpenskyData(doc.object().value(::states).toArray());
+        this->parseData(doc.object().value(::states).toArray());
     }
     else
     {
@@ -78,7 +78,7 @@ void OpenskyAdsbSource::onFinished(QNetworkReply* reply)
         this->start();
 }
 
-void OpenskyAdsbSource::parseOpenskyData(const QJsonArray& data)
+void AdsbOpenskySource::parseData(const QJsonArray& data)
 {
     QJsonArray result;
     QJsonArray array;
