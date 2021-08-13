@@ -16,10 +16,13 @@ class AdsbOpenskySource : public IAdsbSource
 public:
     explicit AdsbOpenskySource(QObject* parent = nullptr);
 
+    jord::domain::Geodetic centerPosition() const override;
     QJsonArray adsbData() const override;
 
     void start() override;
     void stop() override;
+
+    void setCenterPosition(const jord::domain::Geodetic& position) override;
 
 private slots:
     void get(const QString& request);
@@ -32,8 +35,12 @@ private:
     QNetworkAccessManager m_manager;
     QPointer<QNetworkReply> m_lastReply;
     QElapsedTimer m_timer;
-    QJsonArray m_adsbData;
+
     bool m_started = false;
+    jord::domain::Geodetic m_centerPosition;
+    double m_radius = 0.1;
+
+    QJsonArray m_adsbData;
 };
 
 } // namespace adsbera::domain

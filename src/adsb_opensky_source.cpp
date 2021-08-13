@@ -32,6 +32,11 @@ AdsbOpenskySource::AdsbOpenskySource(QObject* parent) : IAdsbSource(parent)
     connect(&m_manager, &QNetworkAccessManager::finished, this, &AdsbOpenskySource::onFinished);
 }
 
+jord::domain::Geodetic AdsbOpenskySource::centerPosition() const
+{
+    return m_centerPosition;
+}
+
 QJsonArray AdsbOpenskySource::adsbData() const
 {
     return m_adsbData;
@@ -39,9 +44,22 @@ QJsonArray AdsbOpenskySource::adsbData() const
 
 void AdsbOpenskySource::start()
 {
+    if (!m_centerPosition.isValid())
+        return;
+
     m_started = true;
     m_timer.start();
-    this->get("/states/all?lamin=45.8389&lomin=5.9962&lamax=47.8229&lomax=10.5226");
+
+    double lamin = m_centerPosition.latitude() - m_radius;
+    double lomin = m_centerPosition.longitude() - m_radius;
+    double lamax = m_centerPosition.latitude() + m_radius;
+    double lomax = m_centerPosition.longitude() + m_radius;
+
+    this->get(QString("/states/all?lamin=%1&lomin=%2&lamax=%3&lomax=%4")
+                  .arg(lamin)
+                  .arg(lomin)
+                  .arg(lamax)
+                  .arg(lomax));
 }
 
 void AdsbOpenskySource::stop()
@@ -53,6 +71,14 @@ void AdsbOpenskySource::stop()
     }
 
     m_started = false;
+}
+
+void AdsbOpenskySource::setCenterPosition(const jord::domain::Geodetic& position)
+{
+    m_centerPosition = position;
+
+    if (!m_started)
+        this->start();
 }
 
 void AdsbOpenskySource::get(const QString& request)

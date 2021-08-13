@@ -25,6 +25,16 @@ QJsonArray AdsbController::adsb() const
     return m_source->adsbData();
 }
 
+QJsonObject AdsbController::centerPosition() const
+{
+    return m_source->centerPosition().toJson();
+}
+
+void AdsbController::setCenterPosition(const QJsonObject& centerPosition)
+{
+    m_source->setCenterPosition(centerPosition);
+}
+
 void AdsbController::start()
 {
     IPropertyTree* pTree = Locator::get<IPropertyTree>();

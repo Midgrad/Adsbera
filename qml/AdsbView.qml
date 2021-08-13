@@ -6,7 +6,10 @@ import Dreka.Adsb 1.0
 Controls.Button {
     id: root
 
-    AdsbController { id: controller }
+    AdsbController {
+        id: controller
+        centerPosition: map.centerPosition
+    }
 
     iconSource: "qrc:/icons/adsb.svg"
     tipText: qsTr("Adsb overview")
