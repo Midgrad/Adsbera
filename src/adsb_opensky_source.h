@@ -28,17 +28,16 @@ private slots:
     void get(const QString& request);
 
     void onFinished(QNetworkReply* reply);
-
-private:
     void parseData(const QJsonArray& data);
 
+private:
     QNetworkAccessManager m_manager;
     QPointer<QNetworkReply> m_lastReply;
     QElapsedTimer m_timer;
 
     bool m_started = false;
     jord::domain::Geodetic m_centerPosition;
-    double m_radius = 0.1;
+    double m_radius = 1.0;
 
     QJsonArray m_adsbData;
 };

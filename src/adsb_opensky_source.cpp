@@ -6,12 +6,12 @@
 #include <QNetworkReply>
 
 // API: https://opensky-network.org/apidoc/rest.html
-
 namespace
 {
-constexpr char baseUrl[] = "https://opensky-network.org/api";
+constexpr char baseUrl[] = "https://drekaapp:drekaapp@opensky-network.org/api";
 constexpr char states[] = "states";
 
+constexpr char code[] = "code";
 constexpr char callsign[] = "callsign";
 constexpr char originCountry[] = "originCountry";
 constexpr char timeUtc[] = "timeUtc";
@@ -22,7 +22,7 @@ constexpr char altitude[] = "altitude";
 constexpr char heading[] = "heading";
 constexpr char velocity[] = "velocity";
 
-constexpr int timeout = 1000;
+constexpr int timeout = 5000; // 5 seconds
 } // namespace
 
 using namespace adsbera::domain;
@@ -115,6 +115,8 @@ void AdsbOpenskySource::parseData(const QJsonArray& data)
 
         array = value.toArray();
 
+        if (array.count() > 0) // code
+            aircraft.insert(::code, array[0]);
         if (array.count() > 1) // callsign
             aircraft.insert(::callsign, array[1]);
         if (array.count() > 2) // origin_country
