@@ -11,15 +11,15 @@ Controls.Button {
         centerPosition: map.centerPosition
     }
 
-    iconSource: "qrc:/icons/adsb.svg"
-    tipText: qsTr("Adsb overview")
-    highlighted: popup.visible
-    onClicked: popup.visible ? popup.close() : popup.open()
-
     Component.onCompleted: {
         map.registerController("adsbController", controller)
         controller.start();
     }
+
+    iconSource: "qrc:/icons/adsb.svg"
+    tipText: qsTr("Adsb overview")
+    highlighted: popup.visible
+    onClicked: popup.visible ? popup.close() : popup.open()
 
     Controls.Popup {
         id: popup
