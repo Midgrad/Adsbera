@@ -42,7 +42,7 @@ void AdsbController::start()
     Q_ASSERT(pTree);
 
     connect(m_source, &domain::IAdsbSource::adsbDataReceived, [this, pTree](const QJsonArray& data) {
-        pTree->setProperty(::adsb, QJsonObject({ { ::states, data } }));
+        pTree->appendProperties(::adsb, QJsonObject({ { ::states, data } }));
 
         emit adsbChanged(data);
     });
