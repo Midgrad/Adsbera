@@ -3,7 +3,6 @@
 #include <QDebug>
 
 #include "adsb_opensky_source.h"
-#include "i_property_tree.h"
 #include "locator.h"
 
 namespace
@@ -38,12 +37,7 @@ void AdsbController::setCenterPosition(const QJsonObject& centerPosition)
 
 void AdsbController::start()
 {
-    IPropertyTree* pTree = Locator::get<IPropertyTree>();
-    Q_ASSERT(pTree);
-
-    connect(m_source, &domain::IAdsbSource::adsbDataReceived, [this, pTree](const QJsonArray& data) {
-        pTree->appendProperties(::adsb, QJsonObject({ { ::states, data } }));
-
+    connect(m_source, &domain::IAdsbSource::adsbDataReceived, [this](const QJsonArray& data) {
         emit adsbChanged(data);
     });
 
