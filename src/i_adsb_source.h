@@ -6,7 +6,7 @@
 
 #include "geodetic.h"
 
-namespace adsbera::domain
+namespace md::domain
 {
 class IAdsbSource : public QObject
 {
@@ -17,18 +17,18 @@ public:
     {
     }
 
-    virtual jord::domain::Geodetic centerPosition() const = 0;
+    virtual Geodetic centerPosition() const = 0;
     virtual QJsonArray adsbData() const = 0;
 
     virtual void start() = 0;
     virtual void stop() = 0;
 
-    virtual void setCenterPosition(const jord::domain::Geodetic& position) = 0;
+    virtual void setCenterPosition(const Geodetic& position) = 0;
 
 signals:
     void adsbDataReceived(QJsonArray adsbData);
 };
 
-} // namespace adsbera::domain
+} // namespace md::domain
 
 #endif // I_ADSB_SOURCE_H

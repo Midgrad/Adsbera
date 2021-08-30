@@ -7,7 +7,7 @@
 #include <QNetworkAccessManager>
 #include <QPointer>
 
-namespace adsbera::domain
+namespace md::domain
 {
 class AdsbOpenskySource : public IAdsbSource
 {
@@ -16,13 +16,13 @@ class AdsbOpenskySource : public IAdsbSource
 public:
     explicit AdsbOpenskySource(QObject* parent = nullptr);
 
-    jord::domain::Geodetic centerPosition() const override;
+    Geodetic centerPosition() const override;
     QJsonArray adsbData() const override;
 
     void start() override;
     void stop() override;
 
-    void setCenterPosition(const jord::domain::Geodetic& position) override;
+    void setCenterPosition(const Geodetic& position) override;
 
 private slots:
     void get(const QString& request);
@@ -36,12 +36,12 @@ private:
     QElapsedTimer m_timer;
 
     bool m_started = false;
-    jord::domain::Geodetic m_centerPosition;
+    Geodetic m_centerPosition;
     double m_radius = 1.0;
 
     QJsonArray m_adsbData;
 };
 
-} // namespace adsbera::domain
+} // namespace md::domain
 
 #endif // ADSB_OPENSKY_SOURCE_H

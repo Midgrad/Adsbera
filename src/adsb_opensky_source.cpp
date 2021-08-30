@@ -16,23 +16,20 @@ constexpr char callsign[] = "callsign";
 constexpr char originCountry[] = "originCountry";
 constexpr char timeUtc[] = "timeUtc";
 constexpr char position[] = "position";
-constexpr char latitude[] = "latitude";
-constexpr char longitude[] = "longitude";
-constexpr char altitude[] = "altitude";
 constexpr char heading[] = "heading";
 constexpr char velocity[] = "velocity";
 
 constexpr int timeout = 5000; // 5 seconds
 } // namespace
 
-using namespace adsbera::domain;
+using namespace md::domain;
 
 AdsbOpenskySource::AdsbOpenskySource(QObject* parent) : IAdsbSource(parent)
 {
     connect(&m_manager, &QNetworkAccessManager::finished, this, &AdsbOpenskySource::onFinished);
 }
 
-jord::domain::Geodetic AdsbOpenskySource::centerPosition() const
+Geodetic AdsbOpenskySource::centerPosition() const
 {
     return m_centerPosition;
 }
@@ -73,7 +70,7 @@ void AdsbOpenskySource::stop()
     m_started = false;
 }
 
-void AdsbOpenskySource::setCenterPosition(const jord::domain::Geodetic& position)
+void AdsbOpenskySource::setCenterPosition(const Geodetic& position)
 {
     m_centerPosition = position;
 

@@ -11,8 +11,8 @@ constexpr char adsb[] = "adsb";
 constexpr char states[] = "states";
 } // namespace
 
-using namespace kjarni::domain;
-using namespace adsbera::endpoint;
+using namespace md::domain;
+using namespace md::presentation;
 
 AdsbController::AdsbController(QObject* parent) :
     QObject(parent),

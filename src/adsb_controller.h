@@ -3,7 +3,7 @@
 
 #include "i_adsb_source.h"
 
-namespace adsbera::endpoint
+namespace md::presentation
 {
 class AdsbController : public QObject
 {
@@ -31,6 +31,6 @@ signals:
 private:
     domain::IAdsbSource* const m_source;
 };
-} // namespace adsbera::endpoint
+} // namespace adsbera::presentation
 
 #endif // ADSB_CONTROLLER_H
