@@ -1,18 +1,27 @@
 #include "module_adsbera.h"
 
+#include <QCoreApplication>
 #include <QDebug>
 #include <QQmlEngine>
 
 #include "adsb_controller.h"
+#include "i_gui_layout.h"
+#include "locator.h"
 
 using namespace md::app;
 
-ModuleAdsbera::ModuleAdsbera()
+void registerTypes()
 {
-    qmlRegisterType<presentation::AdsbController>("Dreka.Adsb", 1, 0, "AdsbController");
+    qmlRegisterType<md::presentation::AdsbController>("Dreka.Adsb", 1, 0, "AdsbController");
 }
 
-void ModuleAdsbera::visit(QJsonObject& features)
+Q_COREAPP_STARTUP_FUNCTION(registerTypes);
+
+ModuleAdsbera::ModuleAdsbera()
 {
-    md::utils::insertInArray(features, "menu", "qrc:/Adsb/AdsbView.qml");
+}
+
+void ModuleAdsbera::init()
+{
+    Locator::get<presentation::IGuiLayout>()->addItem("menu", "qrc:/Adsb/AdsbView.qml");
 }
