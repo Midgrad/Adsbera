@@ -16,8 +16,8 @@ class ModuleAdsbera
 public:
     Q_INVOKABLE ModuleAdsbera();
 
-    void visit(QJsonObject& features) override;
+    void init() override;
 };
-} // namespace adsbera::app
+} // namespace md::app
 
 #endif // MODULE_ADSBERA_H
