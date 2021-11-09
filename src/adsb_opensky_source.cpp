@@ -123,9 +123,9 @@ void AdsbOpenskySource::parseData(const QJsonArray& data)
         if (array.count() > 7) // longitude, latitude, baro_altitude
         {
             QJsonObject coordinate;
-            coordinate.insert(::longitude, array[5]);
-            coordinate.insert(::latitude, array[6]);
-            coordinate.insert(::altitude, array[7]);
+            coordinate.insert(geo::longitude, array[5]);
+            coordinate.insert(geo::latitude, array[6]);
+            coordinate.insert(geo::altitude, array[7]);
 
             aircraft.insert(::position, coordinate);
         }
