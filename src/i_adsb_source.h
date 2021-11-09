@@ -2,6 +2,7 @@
 #define I_ADSB_SOURCE_H
 
 #include <QJsonArray>
+#include <QJsonObject>
 #include <QObject>
 
 #include "geodetic.h"

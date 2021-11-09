@@ -27,12 +27,12 @@ QJsonArray AdsbController::adsb() const
 
 QJsonObject AdsbController::centerPosition() const
 {
-    return m_source->centerPosition().toJson();
+    return QJsonObject::fromVariantMap(m_source->centerPosition().toVariantMap());
 }
 
 void AdsbController::setCenterPosition(const QJsonObject& centerPosition)
 {
-    m_source->setCenterPosition(centerPosition);
+    m_source->setCenterPosition(centerPosition.toVariantMap());
 }
 
 void AdsbController::start()
