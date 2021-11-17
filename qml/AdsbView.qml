@@ -18,27 +18,25 @@ Controls.Button {
 
     iconSource: "qrc:/icons/adsb.svg"
     tipText: qsTr("Adsb overview")
-    highlighted: popup.visible
-    onClicked: popup.visible ? popup.close() : popup.open()
+    highlighted: sidebar.sourceComponent === adsbComponent
+    onClicked: sidebar.sourceComponent = highlighted ? null : adsbComponent
 
-    Controls.Popup {
-        id: popup
+    Component {
+        id: adsbComponent
 
-        closePolicy: Controls.Popup.CloseOnPressOutsideParent
-        width: Controls.Theme.baseSize * 10
-        height: Math.min(implicitHeight, main.availableHeight)
-        y: root.height + Controls.Theme.margins
-        x: -root.parent.x
+        Controls.Frame {
+            width: Controls.Theme.baseSize * 10
 
-        Widgets.ListWrapper {
-            model: controller.adsb
-            anchors.fill: parent
-            emptyText: qsTr("No ADS-B data")
+            Widgets.ListWrapper {
+                model: controller.adsb
+                anchors.fill: parent
+                emptyText: qsTr("No ADS-B data")
 
-            delegate: AdsbState {
-                width: parent.width
-                callsign: modelData.callsign
-                originCountry: modelData.originCountry
+                delegate: AdsbState {
+                    width: parent.width
+                    callsign: modelData.callsign
+                    originCountry: modelData.originCountry
+                }
             }
         }
     }
