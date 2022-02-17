@@ -24,7 +24,7 @@ Controls.Button {
     Component {
         id: adsbComponent
 
-        Controls.Frame {
+        Controls.Pane {
             width: Controls.Theme.baseSize * 10
 
             Widgets.ListWrapper {
